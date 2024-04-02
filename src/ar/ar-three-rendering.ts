@@ -13,6 +13,7 @@ export default async function AR() {
   if (!ARCanvas || !StartButton) {
     throw new Error('Elementが未定義です');
   }
+
   if(navigator.xr === undefined) {
     StartButton.style.display = 'none';
     ARCanvas.style.display = 'none';
