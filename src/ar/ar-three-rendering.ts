@@ -10,11 +10,36 @@ export default async function AR() {
     'startButton'
   ) as HTMLButtonElement;
   const ARCanvas = document.getElementById('ar-canvas') as HTMLCanvasElement;
-  const isArSupported =
+  if (!ARCanvas || !StartButton) {
+    throw new Error('Elementが未定義です');
+  }
+  if(navigator.xr === undefined) {
+    StartButton.style.display = 'none';
+    ARCanvas.style.display = 'none';
+    const message = document.createElement('div');
+    message.textContent = 'WebXR非対応です';
+    document.body.appendChild(message);
+    return;
+  }
+  const isARSupported = await navigator.xr.isSessionSupported('immersive-ar');
+  if (isARSupported === undefined){
+    throw new Error('ARSupported is Undifined');
+  }else if(!isARSupported) {
+    throw new Error('AR非対応です');
+  }
+    
+  /* const isArSupported =
     navigator.xr && (await navigator.xr.isSessionSupported('immersive-ar'));
   if (isArSupported === undefined)
     throw new Error('isARSupported is Undifined');
-  StartButton.disabled = !isArSupported;
+  if(!isArSupported) {
+    StartButton.style.display = 'none';
+    ARCanvas.style.display = 'none';
+    const message = document.createElement('div');
+    message.textContent = 'AR非対応です';
+    document.body.appendChild(message);
+    return;
+  } */
   StartButton.addEventListener('click', onEnterAR);
   async function onEnterAR() {
     StartButton.style.display = 'none';

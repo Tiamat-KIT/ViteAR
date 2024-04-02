@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import './App.css';
 import AR from './ar/ar-three-rendering.ts';
 
 function App() {
