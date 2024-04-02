@@ -1,30 +1,22 @@
-# React + TypeScript + Vite
+# 研究用リポジトリ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 最初にXRのAPIを使えるようにする
 
-Currently, two official plugins are available:
+### 最初に行う処理
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### そもそもそのブラウザでAR開発ができるかどうか
 
-## Expanding the ESLint configuration
+```ts
+const isxR = "xr" in window.navigator ? true : false
+const isAR = await navigator.xr.inSessionSupported("immersive-ar")
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
+if(!(isxR)){
+  throw new Error("xR機能に未対応")
+}else if(!(isAR)){
+  throw new Error("AR機能に未対応")
+}else {
+  // ここならAR動作はするよ
 }
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### xR処理をかいてｋ処理をかいてｋ
